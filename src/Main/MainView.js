@@ -2,14 +2,9 @@ import Marionette from 'backbone.marionette';
 import template from './MainTemplate.html';
 import _ from 'underscore';
 
-const MainView = Marionette.View.extend({
-    tagName: 'div',
-    el: '#app',
+const MainView = Marionette.ItemView.extend({
     template: _.template(template),
-
-    onRender() {
-        console.log('Main Rendered');
-    }
+    el: '#app'
 
 })
 
