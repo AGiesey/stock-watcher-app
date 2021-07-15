@@ -1,0 +1,20 @@
+<div class="stock-card">
+    <div class="stock-card-left">
+        <div class="arrow"> > </div>
+        <div class="vertical-bar"></div>
+        <div class="labels-container">
+            <p class="price price-high"><%- high %></p>
+            <p class="price price-low"><%- low %></p>
+        </div>
+    </div>
+    <div class="stock-card-right">
+        <h3><%- symbol %></h3>
+        <p class="stock-symbol-label"><%- symbol %></p>
+        <p class="stock-price"><%- price %> <span><%- change %></span></p>
+        <p class="stock-recent-performance">
+            <span>OPEN <%- open %></span>
+            <span>HIGH <%- high %></span>
+            <span>LOW <%- low %></span>
+        </p>
+    </div>
+</div>
