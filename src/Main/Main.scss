@@ -1,0 +1,30 @@
+@import "../variables";
+
+.page-header {
+  color: $dark-blue;
+}
+
+.stock-quotes-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 600px) {
+  .stock-quotes-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 600px) and (max-width: 767px) {
+  .stock-quotes-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1024px){
+  .stock-quotes-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
