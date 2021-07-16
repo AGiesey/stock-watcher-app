@@ -2,18 +2,21 @@ import MainView from './Main/MainView';
 import Marionette from 'backbone.marionette';
 import './style.scss';
 import {getGlobalQuoteBySymbol} from "./StockQuote/StockQuoteService";
-import {createFromGlobalQuote} from "./StockQuote/StockQuoteModel";
-import {StockQuoteView} from "./StockQuote/StockQuoteView";
+import {createFromGlobalQuote, StockQuoteCollection} from "./StockQuote/StockQuoteModel";
+import {StockQuoteCollectionView} from "./StockQuote/StockQuoteCollectionView";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const StockWatcherApp = new Marionette.Application();
     StockWatcherApp.start();
 
-    const main = new MainView();
-    main.render();
+    new MainView().render();
 
-    const symbol = getGlobalQuoteBySymbol('IBM');
-    const model = createFromGlobalQuote(symbol);
-    const stockQuoteItem = new StockQuoteView({el: '#stock-quotes', model: model}).render();
+    const globalQuotes = await Promise.all(
+        ['IBM', 'GOOG', 'AAPL', 'GM']
+            .map(getGlobalQuoteBySymbol)
+    )
 
+    const stockQuoteCollection = new StockQuoteCollection(globalQuotes.map(createFromGlobalQuote));
+
+    new StockQuoteCollectionView({el: '#stock-quotes', collection: stockQuoteCollection}).render()
 })
