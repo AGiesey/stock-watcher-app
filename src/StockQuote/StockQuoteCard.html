@@ -1,5 +1,10 @@
 <div class="stock-quote-card">
-    <div class="card-left">
+    <%
+        const colorModifier = change >= 0
+            ? 'positive-change'
+            : 'negative-change';
+    %>
+    <div class="card-left <% print(colorModifier)%>">
         <div class="arrow"> > </div>
         <div class="vertical-bar"></div>
         <div class="labels-container">
@@ -10,7 +15,7 @@
     <div class="card-right">
         <h3><%- name %></h3>
         <p class="stock-symbol-label"><%- symbol %></p>
-        <p class="stock-price"><%- price %> <span><%- change %> (<%- percentChange %>)</span></p>
+        <p class="stock-price"><%- price %> <span class="<% print(colorModifier) %>"><%- change %> (<%- percentChange %>)</span></p>
         <p class="stock-recent-performance">
             <span>OPEN <%- open %></span>
             <span>HIGH <%- high %></span>

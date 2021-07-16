@@ -19,9 +19,17 @@
 
 .card-left {
   width: 60px;
-  background: $bright-green;
+
   display:flex;
   align-items: center;
+
+  &.positive-change {
+    background: $bright-green;
+  }
+
+  &.negative-change {
+    background: $bright-red;
+  }
 
   .price {
     color: white;
@@ -61,7 +69,14 @@
 
   span {
     font-size: .5em;
-    color: $bright-green;
+
+    &.positive-change {
+      color: $bright-green;
+    }
+
+    &.negative-change {
+      color: $bright-red;
+    }
   }
 }
 
