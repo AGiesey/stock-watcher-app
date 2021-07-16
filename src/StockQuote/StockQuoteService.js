@@ -1,5 +1,6 @@
 const baseUrl = new URL('https://www.alphavantage.co/query');
 const apiKey = 'HY0JP87WH3PG17X6';
+const useMockApi = false;
 
 const mockStockSymbols = {
     IBM: 'IBM',
@@ -13,7 +14,9 @@ export const getGlobalQuoteBySymbol = (symbol) => {
         throw new Error("symbol must be a string with a length greater than 0")
     }
 
-    return getMockedData(symbol);
+    return useMockApi
+        ? getMockedData(symbol)
+        : getApiData(symbol);
 }
 
 const getMockedData = (symbol) => {
@@ -84,5 +87,11 @@ const getMockedData = (symbol) => {
 }
 
 const getApiData = (symbol) => {
-    throw new Error("Method not implemented");
+    let url = baseUrl
+    url.search = new URLSearchParams({function: 'GLOBAL_QUOTE', symbol, 'apikey': apiKey} ).toString();
+
+    return fetch(url.toString(), {method: 'GET'})
+        .then(response => response.json())
+        .then(x => x['Global Quote'] || {})
+        .catch(error => console.warn(error));
 }

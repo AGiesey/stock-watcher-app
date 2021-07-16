@@ -5,18 +5,36 @@ import {getGlobalQuoteBySymbol} from "./StockQuote/StockQuoteService";
 import {createFromGlobalQuote, StockQuoteCollection} from "./StockQuote/StockQuoteModel";
 import {StockQuoteCollectionView} from "./StockQuote/StockQuoteCollectionView";
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+
+    // SETUP
     const StockWatcherApp = new Marionette.Application();
     StockWatcherApp.start();
 
-    new MainView().render();
+    const mainView = new MainView()
+    mainView.render();
 
-    const globalQuotes = await Promise.all(
-        ['IBM', 'GOOG', 'AAPL', 'GM']
+    const stockQuoteCollection = new StockQuoteCollection()
+
+    const globalQuotes = Promise.all(
+        ['IBM', 'AAPL']
             .map(getGlobalQuoteBySymbol)
     )
+        .then(globalQuotes => stockQuoteCollection.add(globalQuotes.map(createFromGlobalQuote)));
 
-    const stockQuoteCollection = new StockQuoteCollection(globalQuotes.map(createFromGlobalQuote));
+    new StockQuoteCollectionView({el: '#stock-quotes', collection: stockQuoteCollection}).render();
 
-    new StockQuoteCollectionView({el: '#stock-quotes', collection: stockQuoteCollection}).render()
+    // UPDATE
+    const addNewQuoteToCollection = (globalQuote) => {
+        stockQuoteCollection.add(createFromGlobalQuote(globalQuote));
+    }
+
+    mainView.on("stockSearch", (e) => {
+        getGlobalQuoteBySymbol(e.symbol)
+            .then(maybeGlobalQuote => {
+                if (Object.keys(maybeGlobalQuote).length) {
+                    addNewQuoteToCollection(maybeGlobalQuote);
+                }
+            })
+    });
 })
