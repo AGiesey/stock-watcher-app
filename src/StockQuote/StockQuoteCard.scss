@@ -4,6 +4,7 @@
   display: flex;
   margin: 5px;
   background: white;
+  min-height: 105px;
 
   p {
     margin-bottom: 0;
@@ -18,10 +19,11 @@
 }
 
 .card-left {
-  width: 60px;
+  width: 80px;
 
   display:flex;
   align-items: center;
+  position: relative;
 
   &.positive-change {
     background: $bright-green;
@@ -31,22 +33,36 @@
     background: $bright-red;
   }
 
+  .arrow {
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    left: 10px;
+  }
+
   .price {
     color: white;
-    font-size: .5em;
-    font-size: .5em;
+    font-size: .6em;
+  }
+
+  .price-high {
+    position: absolute;
+    top: 5px;
+  }
+
+  .price-low {
+    position: absolute;
+    bottom: 5px;
   }
 }
 
-.arrow {
-  font-weight: bold;
-  color: white;
-  margin-left: 15px;
-}
+
 
 .vertical-bar {
   height: 90%;
   width: 2px;
+  margin-right: 2px;
+  margin-left: 22px;
   background: white;
 }
 
@@ -68,7 +84,7 @@
   margin-top: 5px;
 
   span {
-    font-size: .5em;
+    font-size: .7em;
 
     &.positive-change {
       color: $bright-green;
@@ -82,14 +98,14 @@
 
 .stock-recent-performance {
   color: $charcoal;
-  font-size: .6em;
+  font-size: .7em;
 
   span {
     margin-right: 5px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .card-left {
     display: none;
   }
