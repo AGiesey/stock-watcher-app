@@ -1,0 +1,25 @@
+<div class="stock-quote-card">
+    <%
+        const colorModifier = change >= 0
+            ? 'positive-change'
+            : 'negative-change';
+    %>
+    <div class="card-left <% print(colorModifier)%>">
+        <div class="arrow" style="<% print(`top: ${this.getArrowTopOffset(price, high, low)}`)%>"> > </div>
+        <div class="vertical-bar"></div>
+        <div class="labels-container">
+            <p class="price price-high"><%- this.formatMoney(high) %></p>
+            <p class="price price-low"><%- this.formatMoney(low) %></p>
+        </div>
+    </div>
+    <div class="card-right">
+        <h3><%- name %></h3>
+        <p class="stock-symbol-label"><%- symbol %></p>
+        <p class="stock-price"><%- this.formatMoney(price) %> <span class="<% print(colorModifier) %>"><%- this.formatMoney(change) %> (<%- changePercent %>)</span></p>
+        <p class="stock-recent-performance">
+            <span>OPEN <%- this.formatMoney(open) %></span>
+            <span>HIGH <%- this.formatMoney(high) %></span>
+            <span>LOW <%- this.formatMoney(low) %></span>
+        </p>
+    </div>
+</div>
